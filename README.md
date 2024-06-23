@@ -373,7 +373,6 @@ roles y permisos.
   "image": "image6.jpg",
   "fuelType": "Gasoline",
   "customer": {
-    // ID del customer ya existente en la base de datos
     "id": 2
   },
   "bodyType": "Sedan",
@@ -422,7 +421,6 @@ roles y permisos.
   "image": "image6.jpg",
   "fuelType": "Gasoline",
   "customer": {
-    // ID del customer ya existente en la base de datos
     "id": 2
   },
   "bodyType": "Sedan",
@@ -480,7 +478,6 @@ roles y permisos.
   "image": "image7.jpg",
   "fuelType": "Gasoline",
   "customer": {
-    // ID del customer ya existente en la base de datos
     "id": 2
   },
   "motorcycleType": "Naked"
@@ -528,7 +525,6 @@ roles y permisos.
   "image": "image7.jpg",
   "fuelType": "Gasoline",
   "customer": {
-    // ID del customer ya existente en la base de datos
     "id": 2
   },
   "motorcycleType": "Naked"
