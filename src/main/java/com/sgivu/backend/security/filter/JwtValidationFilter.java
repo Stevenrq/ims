@@ -19,10 +19,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Filtro de validación de JWT que extiende {@link BasicAuthenticationFilter}.
@@ -37,6 +34,18 @@ public class JwtValidationFilter extends BasicAuthenticationFilter {
      */
     public JwtValidationFilter(AuthenticationManager authenticationManager) {
         super(authenticationManager);
+    }
+
+    public Claims getClaims(String token) {
+        return Jwts.parser().verifyWith(TokenJwtConfig.SECRET_KEY).build().parseSignedClaims(token).getPayload();
+    }
+
+    public Date getExpirationDate(String token) {
+        return getClaims(token).getExpiration();
+    }
+
+    public boolean isExpired(String token) {
+        return getExpirationDate(token).before(new Date());
     }
 
     /**
@@ -63,7 +72,12 @@ public class JwtValidationFilter extends BasicAuthenticationFilter {
         String token = header.replace(TokenJwtConfig.PREFIX_TOKEN, "");
         try {
             // Validar token
-            Claims claims = Jwts.parser().verifyWith(TokenJwtConfig.SECRET_KEY).build().parseSignedClaims(token).getPayload();
+            if (isExpired(token)) {
+                String errorMessage = String.format("El token JWT ha expirado. Fecha de expiración: %s", getExpirationDate(token));
+                logger.error(errorMessage);
+                throw new JwtException(errorMessage + ". Por favor, solicite un nuevo token.");
+            }
+            Claims claims = getClaims(token);
             String username = claims.getSubject();
             Object claimAuthorities = claims.get("authorities");
 
