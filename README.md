@@ -47,6 +47,10 @@ mvn spring-boot:run
 
 ## Configuración Adicional
 
+- > Se deben registrar las autoridades y roles manualmente en el archivo ```src/main/resources/imports.sql``` o mediante
+  una [solicitud http](#crear-una-lista-de-autoridades) con Postman antes de registrar usuarios en la base de datos para
+  evitar algún error inesperado. Esto se arreglará pronto con la implementación de una vista para la gestión de roles y
+  permisos.
 - Configuración de Seguridad: Se ha implementado seguridad utilizando JWT para autenticación y autorización de usuarios.
 - Lombok: Se utiliza para reducir el código boilerplate en las entidades y DTOs.
 
@@ -346,7 +350,7 @@ roles y permisos.
 
 ## Automóviles
 
-## Crear Automóvil
+### Crear Automóvil
 
 - URL: POST /api/cars
 - Descripción: Crea un nuevo automóvil en el sistema.
